@@ -1,0 +1,252 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+
+<head profile="http://gmpg.org/xfn/11">
+  <title>Pyramid and REST | Carlos Vargas</title>
+
+  <meta name="description" content="Pyramid, Angular and REST." />
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <link rel='archives' title='February 2013' href='http://www.vargascarlos.com/2013/02/' />
+  <link rel='canonical' href='http://www.vargascarlos.com/2013/02/pyramid-and-rest/' />
+  <link rel="shortcut icon" href="http://www.vargascarlos.com/favicon.png" />
+
+  <link rel="stylesheet" href="http://www.vargascarlos.com/css/style.min.css" media="all" />
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+
+
+  <script type='text/javascript' src='https://code.jquery.com/jquery-1.11.3.min.js'></script>
+  <script type='text/javascript' src='http://www.vargascarlos.com/js/meanmenu.js'></script>
+  <script>
+    (function(i, s, o, g, r, a, m) {
+      i['GoogleAnalyticsObject'] = r;
+      i[r] = i[r] || function() {
+        (i[r].q = i[r].q || []).push(arguments)
+      }, i[r].l = 1 * new Date();
+      a = s.createElement(o),
+        m = s.getElementsByTagName(o)[0];
+      a.async = 1;
+      a.src = g;
+      m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', 'UA-64746909-1', 'auto');
+    ga('send', 'pageview');
+  </script>
+</head>
+
+
+<body class="home blog" id="top">
+  <div id="block-wrapper">
+    <div id="content-wrapper">
+      <header class="">
+        <div class="wrapper">
+          <div class="logo">
+            <span class="site-title">                                   
+              <a href="/">Carlos Vargas</a>
+            </span>
+          </div>
+          <!-- /logo -->
+
+          <nav>
+            <ul id="menu-main-nav" class="sf-js-enabled">
+              <li id="menu-item-26" class="menu-item">
+                <a href="https://plus.google.com/photos/105136162983346148159/albums/5829455468167570561">Photography</a>
+              </li>
+              <li id="menu-item-27" class="menu-item">
+                <a href="http://www.vargascarlos.com/#about">About Me</a>
+              </li>
+              <li id="menu-item-94" class="menu-item">
+                <a href="#contact">Contact</a>
+              </li>
+              <li id="menu-item-94" class="menu-item">
+                <a href="http://www.vargascarlos.com/blog/">Blog</a>
+              </li>
+            </ul>
+          </nav>
+          <!-- /nav -->
+        </div>
+      </header>
+      <!-- /header -->
+
+
+
+      <section class="home-items">
+        <article id="about">
+          <span class="box"></span>
+          <h2 class="post-title">Pyramid and REST</h2>
+          <span class="post-date">
+      on      February 18, 2013,
+    </span>
+
+          <div class="post-content">
+            <p>I&#8217;ve been working on a little project lately using <a href="https://pyramid.readthedocs.org/en/latest/">Pyramid</a> and <a href="http://www.angularjs.org">AngularJS</a>, for server and client side respectively. Naturally, this means that my Angular&#8217;s Controllers need to make <code>AJAX</code> calls to my server in order to get and send data. So, I have decided to create a little RESTful API to easily do this.</p>
+            <p>There are many benefits of using a RESTful web service &#8211; this <a href="http://www.ibm.com/developerworks/webservices/library/ws-restful/">IBM article</a> does an excellent job of explaining them &#8211; and I wanted to leverage them for my project. What I wanted to do was:</p>
+            <pre><code>GET    /user        - get a collection of ALL users
+POST   /user        - create new user
+
+GET    /user/name   - get the user with that 'name'
+PUT    /user/name   - update user with that 'name'
+DELETE /user/name   - delete user with that 'name'
+</code></pre>
+            <p>Of course, <code>name</code> is a horrible key to use. I&#8217;ll probably end up using <code>id</code> instead, but for the purpose of this post, <code>name</code> will suffice.</p>
+            <p>In Pyramid you have the ability of mapping different request methods to the same route. For example:</p>
+            <pre><code>from pyramid.response import Response
+from pyramid.config import Configurator
+from pyramid.view import view_defaults
+
+@view_defaults(route_name='user')
+class USERView(object):
+    def __init__(self, request):
+        self.request = request
+
+     @view_config(request_method='GET')
+     def get(self):
+        return Response('get')
+
+     @view_config(request_method='POST')
+     def post(self):
+        return Response('post')
+
+     @view_config(request_method='PUT')
+     def put(self):
+         return Response('put')
+
+     @view_config(request_method='DELETE')
+     def delete(self):
+        return Response('delete')
+
+if __name__ == '__main__':
+    config = Configurator()
+    config.add_route('user', '/user')
+    config.scan()
+    ...
+</code></pre>
+            <p>In this example, whenever the URL <code>/user</code> is visited, Pyramid will render the view that corresponds with the <code>request_method</code>.Such that,</p>
+            <pre><code>GET  /user  =&gt; USERView.get
+POST /user  =&gt; USERView.post
+...
+</code></pre>
+            <p>So far so good. This is just how <code>REST</code> works, however there&#8217;s a little caveat. If I want to get a specific user I need to do:</p>
+            <pre><code>myapp.com/user?name=carlos
+</code></pre>
+            <p>Uh-oh. This is not how I wanted to access a user. Not only that, but it also breaks one of REST design principles: Expose directory structure-like URIs. This URI, besides not being intuitive, it&#8217;s hard to remember &#8211; therefore making for a horrible API. Instead, it should look like:</p>
+            <pre><code>myapp.com/user/carlos
+</code></pre>
+            <p>In order to get the routes to look like the above, I could do:</p>
+            <pre><code>...
+@view_defaults(route_name='user')
+class USERView(object):
+    ...
+    @view_config(request_method='GET')
+    def getUser(self):
+        id = self.request.matchdict['name']
+        ...
+
+    @view_config(route_name='users', request_method='GET')
+    def getAllUsers(self):
+        ...
+
+    ... same methods as before ...
+
+if __name__ == '__main__':
+    config = Configurator();
+    config.add_route('user', '/user/{name}')
+    config.add_route('users', '/user')
+    config.scan()
+    ...
+</code></pre>
+            <p>Notice how I added a new route <code>config.add_route('users', '/user')</code> which will handle getting ALL of the users. I also updated the old one to handle access to a specific user <code>config.add_route('user', '/users/{name}')</code>.</p>
+            <p>I added a new method to the <code>USERView</code> class to handle the new <code>/users</code> route. This works, because arguments passed to <code>@view_config</code> decorator override those passed to <code>@view_defaults</code>. Meaning that <code>getAllUsers</code> overrides its class&#8217; route and specifies its own. For more information about how <code>@view_defaults</code> works, check the <a href="http://docs.pylonsproject.org/projects/pyramid/en/1.3-branch/narr/viewconfig.html#view-defaults">Pyramid documentation</a>.</p>
+            <p>Now, our requests do the following:</p>
+            <pre><code>GET /user/carlos    =&gt; USERView.getUser
+GET /user           =&gt; USERView.getAllUsers
+POST /user          =&gt; USERView.post
+</code></pre>
+            <h2>Using Cornice</h2>
+            <p>The fine folks at Mozilla realized that specifying multiple routes and multiple request methods <em>every time</em> you wanted to create a RESTful API was cumbersome. So they created a simple library to facilitate this. Enter <a href="https://cornice.readthedocs.org/en/latest/index.html">Cornice</a>.</p>
+            <pre><code>from pyramid.config import Configurator
+from cornice.resource import resource, view
+
+@resource(collection_path='/user', path='/user/{name}')
+class USERView(object):
+
+    def __init__(self, request):
+        self.request = request
+
+    def collection_get(self):
+        return {'users': ... }
+
+    @view(renderer='json')
+    def get(self):
+        name = self.request.matchdict['name']
+        ....
+
+if __name__ == '__main__':
+    config = Configurator()
+    # adds cornice
+    config.include("cornice")
+    config.scan()
+    ...
+</code></pre>
+            <p>Our requests now look like:</p>
+            <pre><code>GET /user/carlos    =&gt; USERView.get
+GET /user           =&gt; USERView.collection_get
+POST /user          =&gt; USERView.post
+</code></pre>
+            <p>Voila! Cornice&#8217;s <code>@resource(collection_path='/user', ...)</code> maps to <code>collection_get</code> method, which is used whenever I need to get <strong>ALL</strong> of the users. While <code>@resource(..., path='/user/{name})</code> maps to the corresponding <code>get, post, put, delete</code> method.</p>
+            <p>With Cornice, I obtained the same output with half the amount of work. What kind of sorcery is this? Actually, Cornice&#8217;s insides are doing exactly the same thing I did above!</p>
+            <p>So, guess what ended up using for my web app? Yep, I decided to go with Cornice. Besides being easier to set up and read, it provides some robust validation features &#8211; which are out of the scope of this post &#8211; which will be useful later on during development.</p>
+          </div>
+        </article>
+        <article id="contact">
+          <span class="box"></span>
+          <h2>Contact Me</h2>
+          <ul>
+            <li><a href="https://careers.stackoverflow.com/carlosvargas" title="CV"><i class="fa fa-stack-exchange"></i>&nbsp;resume</a>
+            </li>
+            <li><a href="mailto:contact@vargascarlos.com" title="Contact me by email"><i class="fa fa-envelope-o"></i>&nbsp;email me</a>
+            </li>
+            <li><a href="https://twitter.com/carlosvargascs" title="@carlosvargascs"><i class="fa fa-twitter"></i>&nbsp;@carlosvargascs</a>
+            </li>
+            <li><a href="https://plus.google.com/u/0/+CarlosVargascv/posts" title="+carlosvargascs"><i class="fa fa-google-plus"></i>&nbsp;+carlosvargascs</a>
+            </li>
+            <li>
+              <a href="http://stackexchange.com/users/289746">
+                <img src="http://stackexchange.com/users/flair/289746.png" width="208" height="58" alt="profile for Carlos V on Stack Exchange, a network of free, community-driven Q&amp;A sites" title="profile for Carlos V on Stack Exchange, a network of free, community-driven Q&amp;A sites">
+              </a>
+            </li>
+          </ul>
+        </article>
+      </section>
+
+      <footer>
+        <div class="wrapper">
+          <div class="widgets widgets-on">
+            <div class="footer-widget">
+              <h3 class="widget-title">Latest Posts</h3>
+              <ul>
+                <li>
+                  <span class="post-date">18 Feb - </span>
+                  <a href="http://www.vargascarlos.com/2013/02/pyramid-and-rest/" title="Read Pyramid and REST" class="post-title">Pyramid and REST</a>
+                </li>
+
+
+
+              </ul>
+              <small class="right">&copy; 2015 Carlos Vargas.</small>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </div>
+  <script>
+    jQuery(document).ready(function() {
+      jQuery('header nav').meanmenu();
+    });
+  </script>
+</body>
+
+</html>
