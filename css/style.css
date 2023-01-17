@@ -16,12 +16,13 @@ font-weight: 300;
 letter-spacing: 0.05em; }
 
 .header {
-	background-color: #f1f3f4;
+	/* background-color: #f1f3f4; */
+	background: #161415 no-repeat top center;
 }
 
 .header h1 {
 	/* color: #495057; */
-	color: #2A9D8F;
+	color: #FFF;
 	text-transform:uppercase;
 	font-size: 3em;
 	padding-bottom:0;
@@ -88,6 +89,18 @@ letter-spacing: 0.05em; }
 .job .job-description {
 	margin-bottom: 0;
 	padding: 0;
+}
+
+.about-me {
+	background: #2B2B2B;
+	line-height: 30px;
+	padding-top: 18px;
+	padding-bottom: 66px;
+	overflow: hidden;
+}
+
+.about-me * {
+	color: #DEEEFF;
 }
 
 .vision ul {
