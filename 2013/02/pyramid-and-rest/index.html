@@ -1,23 +1,23 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="https://www.w3.org/1999/xhtml" lang="en-US">
 
-<head profile="http://gmpg.org/xfn/11">
+<head profile="https://gmpg.org/xfn/11">
   <title>Pyramid and REST | Carlos Vargas</title>
 
   <meta name="description" content="Pyramid, Angular and REST." />
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-  <link rel='archives' title='February 2013' href='http://www.vargascarlos.com/2013/02/' />
-  <link rel='canonical' href='http://www.vargascarlos.com/2013/02/pyramid-and-rest/' />
-  <link rel="shortcut icon" href="http://www.vargascarlos.com/favicon.png" />
+  <!-- <link rel='archives' title='February 2013' href='https://vargascarlos.com/2013/02/' /> -->
+  <link rel='canonical' href='https://vargascarlos.com/2013/02/pyramid-and-rest/' />
+  <!-- <link rel="shortcut icon" href="https://vargascarlos.com/favicon.png" /> -->
 
-  <link rel="stylesheet" href="http://www.vargascarlos.com/css/style.min.css" media="all" />
-  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://vargascarlos.com/css/style.min.css" media="all" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
 
 
   <script type='text/javascript' src='https://code.jquery.com/jquery-1.11.3.min.js'></script>
-  <script type='text/javascript' src='http://www.vargascarlos.com/js/meanmenu.js'></script>
+  <script type='text/javascript' src='https://vargascarlos.com/js/meanmenu.js'></script>
   <script>
     (function(i, s, o, g, r, a, m) {
       i['GoogleAnalyticsObject'] = r;
@@ -49,22 +49,22 @@
           </div>
           <!-- /logo -->
 
-          <nav>
+          <!-- <nav>
             <ul id="menu-main-nav" class="sf-js-enabled">
               <li id="menu-item-26" class="menu-item">
                 <a href="https://plus.google.com/photos/105136162983346148159/albums/5829455468167570561">Photography</a>
               </li>
               <li id="menu-item-27" class="menu-item">
-                <a href="http://www.vargascarlos.com/#about">About Me</a>
+                <a href="https://vargascarlos.com/#about">About Me</a>
               </li>
               <li id="menu-item-94" class="menu-item">
                 <a href="#contact">Contact</a>
               </li>
               <li id="menu-item-94" class="menu-item">
-                <a href="http://www.vargascarlos.com/blog/">Blog</a>
+                <a href="https://vargascarlos.com/blog/">Blog</a>
               </li>
             </ul>
-          </nav>
+          </nav> -->
           <!-- /nav -->
         </div>
       </header>
@@ -81,8 +81,8 @@
     </span>
 
           <div class="post-content">
-            <p>I&#8217;ve been working on a little project lately using <a href="https://pyramid.readthedocs.org/en/latest/">Pyramid</a> and <a href="http://www.angularjs.org">AngularJS</a>, for server and client side respectively. Naturally, this means that my Angular&#8217;s Controllers need to make <code>AJAX</code> calls to my server in order to get and send data. So, I have decided to create a little RESTful API to easily do this.</p>
-            <p>There are many benefits of using a RESTful web service &#8211; this <a href="http://www.ibm.com/developerworks/webservices/library/ws-restful/">IBM article</a> does an excellent job of explaining them &#8211; and I wanted to leverage them for my project. What I wanted to do was:</p>
+            <p>I&#8217;ve been working on a little project lately using <a href="https://pyramid.readthedocs.org/en/latest/">Pyramid</a> and <a href="https://www.angularjs.org">AngularJS</a>, for server and client side respectively. Naturally, this means that my Angular&#8217;s Controllers need to make <code>AJAX</code> calls to my server in order to get and send data. So, I have decided to create a little RESTful API to easily do this.</p>
+            <p>There are many benefits of using a RESTful web service &#8211; this <a href="https://www.ibm.com/developerworks/webservices/library/ws-restful/">IBM article</a> does an excellent job of explaining them &#8211; and I wanted to leverage them for my project. What I wanted to do was:</p>
             <pre><code>GET    /user        - get a collection of ALL users
 POST   /user        - create new user
 
@@ -158,7 +158,7 @@ if __name__ == '__main__':
     ...
 </code></pre>
             <p>Notice how I added a new route <code>config.add_route('users', '/user')</code> which will handle getting ALL of the users. I also updated the old one to handle access to a specific user <code>config.add_route('user', '/users/{name}')</code>.</p>
-            <p>I added a new method to the <code>USERView</code> class to handle the new <code>/users</code> route. This works, because arguments passed to <code>@view_config</code> decorator override those passed to <code>@view_defaults</code>. Meaning that <code>getAllUsers</code> overrides its class&#8217; route and specifies its own. For more information about how <code>@view_defaults</code> works, check the <a href="http://docs.pylonsproject.org/projects/pyramid/en/1.3-branch/narr/viewconfig.html#view-defaults">Pyramid documentation</a>.</p>
+            <p>I added a new method to the <code>USERView</code> class to handle the new <code>/users</code> route. This works, because arguments passed to <code>@view_config</code> decorator override those passed to <code>@view_defaults</code>. Meaning that <code>getAllUsers</code> overrides its class&#8217; route and specifies its own. For more information about how <code>@view_defaults</code> works, check the <a href="https://docs.pylonsproject.org/projects/pyramid/en/1.3-branch/narr/viewconfig.html#view-defaults">Pyramid documentation</a>.</p>
             <p>Now, our requests do the following:</p>
             <pre><code>GET /user/carlos    =&gt; USERView.getUser
 GET /user           =&gt; USERView.getAllUsers
@@ -200,25 +200,6 @@ POST /user          =&gt; USERView.post
             <p>So, guess what ended up using for my web app? Yep, I decided to go with Cornice. Besides being easier to set up and read, it provides some robust validation features &#8211; which are out of the scope of this post &#8211; which will be useful later on during development.</p>
           </div>
         </article>
-        <article id="contact">
-          <span class="box"></span>
-          <h2>Contact Me</h2>
-          <ul>
-            <li><a href="https://careers.stackoverflow.com/carlosvargas" title="CV"><i class="fa fa-stack-exchange"></i>&nbsp;resume</a>
-            </li>
-            <li><a href="mailto:contact@vargascarlos.com" title="Contact me by email"><i class="fa fa-envelope-o"></i>&nbsp;email me</a>
-            </li>
-            <li><a href="https://twitter.com/carlosvargascs" title="@carlosvargascs"><i class="fa fa-twitter"></i>&nbsp;@carlosvargascs</a>
-            </li>
-            <li><a href="https://plus.google.com/u/0/+CarlosVargascv/posts" title="+carlosvargascs"><i class="fa fa-google-plus"></i>&nbsp;+carlosvargascs</a>
-            </li>
-            <li>
-              <a href="http://stackexchange.com/users/289746">
-                <img src="http://stackexchange.com/users/flair/289746.png" width="208" height="58" alt="profile for Carlos V on Stack Exchange, a network of free, community-driven Q&amp;A sites" title="profile for Carlos V on Stack Exchange, a network of free, community-driven Q&amp;A sites">
-              </a>
-            </li>
-          </ul>
-        </article>
       </section>
 
       <footer>
@@ -229,7 +210,7 @@ POST /user          =&gt; USERView.post
               <ul>
                 <li>
                   <span class="post-date">18 Feb - </span>
-                  <a href="http://www.vargascarlos.com/2013/02/pyramid-and-rest/" title="Read Pyramid and REST" class="post-title">Pyramid and REST</a>
+                  <a href="https://vargascarlos.com/2013/02/pyramid-and-rest/" title="Read Pyramid and REST" class="post-title">Pyramid and REST</a>
                 </li>
 
 

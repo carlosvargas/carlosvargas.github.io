@@ -1,0 +1,25 @@
+{%- comment -%}
+  Get post description or generate it from the post content.
+{%- endcomment -%}
+
+{%- assign max_length = include.max_length | default: 1000 -%}
+
+{%- capture description -%}
+  {% comment %}
+    Remove the line number of the code snippet.
+  {% endcomment %}
+  {% assign content = post.content %}
+  {% assign content_size = post.content | size %}
+  
+  {% if post.weblink or content_size == 0 %}
+  {% else %}
+    {% assign word_count = content | number_of_words  %}
+    {% assign link_text = '[... ' | append: word_count | append: ']' %}
+    {% assign link = '<a class="read-more" href="' | append: post.url | append: '">' | append: link_text | append: '</a>' %}
+    {% assign content = content | truncate: max_length | append: link %}
+  {% endif %}
+
+  {{- content | markdownify -}}
+{%- endcapture -%}
+
+{{ description }}

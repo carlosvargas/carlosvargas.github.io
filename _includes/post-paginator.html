@@ -1,0 +1,47 @@
+<!-- The paginator for post list on HomgPage. -->
+
+<nav aria-label="Page Navigation">
+  <ul class="pagination align-items-center mt-4 mb-0">
+    <!-- left arrow -->
+    {% if paginator.previous_page %}
+      {% assign prev_url = paginator.previous_page_path | prepend: site.baseurl %}
+    {% else %}
+      {% assign prev_url = '#' %}
+    {% endif %}
+
+    <li class="page-item {% unless paginator.previous_page %}disabled{% endunless %}">
+      <a class="page-link" href="{{ prev_url }}" aria-label="previous-page">
+        <i class="fas fa-angle-left"></i>
+      </a>
+    </li>
+
+    <!-- page numbers -->
+    {% if paginator.page_trail %}
+      {% for trail in paginator.page_trail %}
+        <li class="page-item {% if page.url == trail.path %}active{% endif %}">
+            <a class="page-link" href="{{ trail.path | prepend: site.baseurl }}" title="{{trail.title}}">{{ trail.num }}</a>
+        </li>
+      {% endfor %}
+    {% endif %}
+
+    <!-- mobile pagination -->
+    <li class="page-index align-middle">
+      <span>{{ paginator.page }}</span>
+      <span class="text-muted">/ {{ paginator.total_pages }}</span>
+    </li>
+
+    <!-- right arrow -->
+    {% if paginator.next_page_path %}
+      {% assign next_url = paginator.next_page_path | prepend: site.baseurl %}
+    {% else %}
+      {% assign next_url = '#' %}
+    {% endif %}
+
+    <li class="page-item {% unless paginator.next_page_path %}disabled{% endunless %}">
+      <a class="page-link" href="{{ next_url }}" aria-label="next-page">
+        <i class="fas fa-angle-right"></i>
+      </a>
+    </li>
+  </ul>
+</nav>
+<!-- .pagination -->

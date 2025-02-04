@@ -1,0 +1,25 @@
+<!-- The Top Bar -->
+
+<header id="topbar-wrapper" aria-label="Top Bar">
+  <div id="topbar" class="d-flex align-items-center justify-content-between px-lg-3 h-100">
+    <div id="topbar-title" class="d-flex">
+      <header class="profile-wrapper d-flex">
+        <a class="site-title d-block" href="/">Carlos' Qupts</a>
+      </header>
+    </div>
+    <ul class="navbar-nav flex-row">
+      <!-- home -->
+      <li class="nav-item">
+        <a href="{{ '/' | relative_url }}" class="nav-link">
+          <span>ABOUT</span>
+        </a>
+      </li>
+
+      <li class="nav-item{% if page.layout == 'home' %}{{ " active" }}{% endif %}">
+        <a href="{{ 'qupts' | relative_url }}" class="nav-link">
+          <span>QUPTS</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</header>

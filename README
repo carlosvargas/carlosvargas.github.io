@@ -1,0 +1,6 @@
+
+This is the [Jekyll](https://jekyllrb.com/) source for http://vargascarlos.com
+
+I'm using a modified version of the [jekyll-theme-chirpy](https://github.com/cotes2020/jekyll-theme-chirpy). 
+
+It gets deployed to GH Pages using the (workflow)[.github/workflows]
