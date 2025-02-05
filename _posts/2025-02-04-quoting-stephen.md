@@ -1,6 +1,6 @@
 ---
 date: 2025-02-04 19:24 +0800
-title: “Quoting Stephen”
+title: Quoting Stephen Gruppetta
 linkblog: true
 tags: [python]
 ---
