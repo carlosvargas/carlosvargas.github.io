@@ -5,7 +5,7 @@ linkblog: true
 tags: [sql]
 ---
 
-[Quoting Peter Eisentraut](http://peter.eisentraut.org/blog/2025/02/11/how-about-trailing-commas-in-sql), on the challenges of adding trailing commas do SQL. 
+[Quoting Peter Eisentraut](https://peter.eisentraut.org/blog/2025/02/11/how-about-trailing-commas-in-sql), on the challenges of adding trailing commas do SQL. 
 
 
 > can see a few possible approaches:
