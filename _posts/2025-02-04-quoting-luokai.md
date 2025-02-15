@@ -1,4 +1,5 @@
 ---
+layout: post
 date: 2025-02-04 08:15 +0800
 title: Quoting luokai
 linkblog: true

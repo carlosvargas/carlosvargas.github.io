@@ -1,4 +1,5 @@
 ---
+layout: post
 date: 2025-02-01 21:00:00 +0800
 title: "Refactoring"
 linkblog: true

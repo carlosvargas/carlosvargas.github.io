@@ -1,6 +1,7 @@
 ---
+layout: post
 date: 2025-02-05 18:35 +0800
-title: <think> token
+title: think token
 linkblog: true
 tags: [llms]
 ---

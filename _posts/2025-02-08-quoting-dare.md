@@ -1,4 +1,5 @@
 ---
+layout: post
 date: 2025-02-08 12:36 +0800
 title: Quoting Dare
 linkblog: true

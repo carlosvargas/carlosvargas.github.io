@@ -1,4 +1,5 @@
 ---
+layout: post
 date: 2025-02-10 21:12 +0800
 title: Anthropic Economic Index
 linkblog: true
