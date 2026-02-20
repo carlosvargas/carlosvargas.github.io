@@ -30,3 +30,14 @@ Salvatore offers two tips to help us avoid burnout:
 2. One project at a time: Avoid the temptation to parallelize just because the AI is fast. Use the time while the LLM is "thinking" to stay deep in the current codebase. You can still use agentic mode for bug fixing or optimization, but for core work, we need to contribute more to the ideas without fracturing our context.
 
 Now excuse me as I go tell my Claude Code and Codex running instances what to do. 
+
+edit: It seems that more folks are also saying the same thing:
+
+> I find that I am only really comfortable working at that pace for short bursts of a few hours once or occasionally twice a day, even with lots of practice.
+> So I guess what I'm trying to say is, the new workday should be three to four hours. For everyone. It may involve 8 hours of hanging out with people. But not doing this crazy vampire thing the whole time. That will kill people.
+-- [Steve Yegge](https://martinfowler.com/articles/who-is-llm.html)
+
+And 
+
+> Teachers told us that we could do a maximum of 3-4 hours of revision, after that it became counter-productive. I've since noticed that I can only do decent writing for a similar length of time before some kind of brain fog sets in.
+-- [Martin Fowler](https://martinfowler.com/fragments/2026-02-19.html)
